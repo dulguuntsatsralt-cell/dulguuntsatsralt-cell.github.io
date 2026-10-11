@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dulguun Enkhtsatsral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&family=JetBrains+Mono&display=swap">
+<style>
+/* Layout: an 80vw x 80vh flat window on a blue field; the page continues on folds above and below that bend toward the viewer. Single-theme by choice. */
+:root {
+  --blue: #1700c7;
+  --white: #ffffff;
+  --soft: rgba(255, 255, 255, 0.8);
+  --f-main: "Public Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--blue); }
+body { margin: 0; color: var(--white); font-family: var(--f-main); font-size: 2rem; line-height: normal; }
+::selection { background: rgba(255, 255, 255, 0.99); color: var(--blue); }
+a { color: var(--white); }
+a.out::after { content: "\2009↗"; font-size: 0.7em; vertical-align: 0.1em; }
+:focus-visible { outline: 2px dashed var(--white); outline-offset: 3px; }
+br { display: none; }
+
+.content { padding: 30px; }
+header { height: calc(80vh + 30px); position: relative; margin-bottom: 50px; }
+h1, h2, h3, h4 { margin: 0; }
+h1 { position: absolute; bottom: 0; left: 0; letter-spacing: 1px; word-spacing: 28px; text-transform: uppercase; font-size: min(2em, 5.2vw); font-weight: 700; white-space: nowrap; }
+h2 { margin-top: 120px; font-size: 1.5em; font-weight: 700; }
+hr { border: 0.5px solid var(--white); margin: 0.5em 0; }
+ul { list-style: none; margin: 0; padding: 0; }
+ul li { margin: 5px 0; }
+section { margin-bottom: 50px; }
+section ul { margin-top: 10px; }
+section ul li { margin-bottom: 20px; }
+ul li sup { font-size: 0.6em; margin-right: 8px; }
+.smaller { font-size: 0.8em; }
+.pending { font-size: 0.6em; font-weight: 700; letter-spacing: 0.05em; margin-right: 6px; vertical-align: 0.15em; }
+
+.ascii, .scroll { overflow-x: auto; margin: 10px 0 20px; }
+.ascii { border: 1px solid var(--white); padding: 14px; }
+.ascii pre { margin: 0; font-family: var(--f-mono); font-size: 0.42em; line-height: 1.5; white-space: pre; }
+table { border-collapse: collapse; font-size: 0.55em; }
+th, td { text-align: left; padding: 6px 22px 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.45); white-space: nowrap; }
+td.n { font-family: var(--f-mono); font-size: 0.92em; }
+pre.bib { margin: 10px 0; font-family: var(--f-mono); font-size: 0.4em; line-height: 1.5; white-space: pre; overflow-x: auto; border: 1px solid rgba(255, 255, 255, 0.5); padding: 12px; }
+button.copy { font: inherit; font-size: 0.55em; color: var(--white); background: transparent; border: 1px solid var(--white); padding: 6px 12px; cursor: pointer; min-height: 40px; }
+button.copy:hover { background: var(--white); color: var(--blue); }
+
+footer { margin: 100px 0 200px; padding-bottom: 300px; }
+footer .mark { margin: 0 0 1.4em; font-size: 1em; line-height: 1; letter-spacing: 0.02em; }
+footer .hello { margin: 0 0 1.1em; }
+
+@media only screen and (max-width: 767px) {
+  body { font-size: 0.9rem; }
+  header { height: 40vh; }
+  br { display: block; }
+  h1 { word-spacing: 18px; }
+  header { height: calc(80vh - 6px); }
+  footer { padding-bottom: 100px; }
+  .ascii pre { font-size: 0.72em; }
+  table { font-size: 0.85em; }
+  pre.bib { font-size: 0.72em; }
+  button.copy { font-size: 0.9em; }
+}
+
+/* ---- fold mode (turned on by script) ---- */
+.scroller { display: none; }
+html.folded, html.folded body { height: 100%; overflow: hidden; }
+html.folded .scroller { display: block; position: fixed; inset: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; outline: none; }
+.sticky { position: sticky; top: 0; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.w3d { position: relative; perspective: 20vw; transform-style: preserve-3d; }
+.fold { height: 80vh; width: 88vw; overflow: hidden; }
+.fold .content { will-change: transform; }
+.fold-before { position: absolute; left: 0; right: 0; bottom: 100%; transform-origin: center bottom; transform: rotateX(-90deg); }
+.fold-after { position: absolute; left: 0; right: 0; top: 100%; transform-origin: center top; transform: rotateX(90deg); }
+@media only screen and (max-width: 767px) {
+  .fold-before { transform: rotateX(-140deg); }
+  .fold-after { transform: rotateX(140deg); }
+}
+</style>
+
+</head>
+<body>
+<div class="scroller" id="scroller" tabindex="-1">
+  <div class="sticky">
+    <div class="w3d">
+      <div class="fold fold-before" aria-hidden="true"></div>
+      <div class="fold" id="center"></div>
+      <div class="fold fold-after" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div id="spacer"></div>
+</div>
+
+<main class="content" id="content">
+  <header><h1><span>Dulguun</span> <span>Enkhtsatsral</span></h1></header>
+  <ul>
+    <li>Data Science Student – Building agents that get better the longer they work</li>
+    <li>de2318@nyu.edu</li>
+    <li><a class="out" href="https://github.com/dulguuntsatsralt-cell">github.com/dulguuntsatsralt-cell</a></li>
+  </ul>
+
+  <section>
+    <h2>Research</h2>
+    <hr>
+    <ul>
+      <li><a class="out" href="https://github.com/dulguuntsatsralt-cell/Mk33">Mk33</a> – A fully specified recipe and reference implementation for training long-horizon self-improving agents. Sole author, preprint, 2026. Read the <a class="out" href="https://github.com/dulguuntsatsralt-cell/Mk33/blob/main/paper/main.pdf">paper</a></li>
+      <li>Mk33 Bench – Four small CPU-only environments for measuring whether an agent keeps improving over many rounds, on a laptop with any API or local model</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Mk33</h2>
+    <hr>
+    <ul>
+      <li>AREX-2 (BAAI) showed that an agent trained on long improvement runs keeps getting better with more rounds, but described its training recipe only in prose. Mk33 makes every step code, every threshold a config value, and every design choice an ablation</li>
+      <li>Environment checks – A common score scale, a noise-aware headroom filter, benchmark decontamination, and an isolated scorer</li>
+      <li>Round ledger compaction – A one-line record of every round replaces old turns once a multi-hour run fills the context window</li>
+      <li>Progress-aware loss masking – No training signal for repeated, empty or polling turns; full weight for turns that improved the score</li>
+      <li>Matched contexts – One context builder for the agent and the training data</li>
+      <li>Open source – Version 0.1.0 under Apache-2.0, with 43 tests that GitHub Actions runs on every change</li>
+    </ul>
+    <div class="ascii" role="img" aria-label="Context window before and after compaction. After compaction the ledger and a note replace old turns and only the last two rounds stay verbatim.">
+<pre aria-hidden="true">         0%                                           75%        100%
+before   ▓▓▓▓▓▓▓▓████████████████████████████████████████············
+after    ▓▓▓▓▓▓▓▓≡≡≡≡≡~~~████████████································
+                                                      ^ compact here
+
+▓ pinned   ≡ ledger   ~ note   █ verbatim turns   · free</pre>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Bench environment</th><th>Metric</th><th>Baseline</th><th>Reference ×3</th></tr></thead>
+        <tbody>
+          <tr><td>Tabular regression</td><td>RMSE ↓</td><td class="n">4.970</td><td class="n">2.616 2.614 2.642</td></tr>
+          <tr><td>Sentiment + negation</td><td>Accuracy ↑</td><td class="n">0.511</td><td class="n">0.653 0.657 0.659</td></tr>
+          <tr><td>Weekly forecasting</td><td>MASE ↓</td><td class="n">4.239</td><td class="n">1.041 1.019 0.984</td></tr>
+          <tr><td>0/1 knapsack</td><td>Gap ↓</td><td class="n">0.321</td><td class="n">0.0052 0.0063 0.0048</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>A first pilot run with a hosted model on a free API tier checked the pipeline end to end</li>
+      <li><span class="pending">PENDING</span>The full ledger versus truncation grid (four environments, three repeats) is next; results will be posted here</li>
+    </ul>
+    <pre class="bib" data-copy-src="bib">@misc{enkhtsatsral2026mk33,
+  title  = {Mk33: A Fully Specified Recipe and Reference
+            Implementation for Training Long-Horizon
+            Self-Improving Agents},
+  author = {Enkhtsatsral, Dulguun},
+  year   = {2026}
+}</pre>
+    <button class="copy" type="button" data-copy="bib">Copy BibTeX</button>
+  </section>
+
+  <section>
+    <h2>Work Experience</h2>
+    <hr>
+    <ul>
+      <li><sup>2023</sup>Darkhan Metallurgical Plant, Darkhan – Project Intern and International Project Manager</li>
+      <li><sup>2023</sup>21DREAMS Project, Darkhan-Uul – Provincial Ambassador</li>
+      <li><sup>2021</sup>Animal Ownership Program, Mongolia – Co-Founder</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Highlights</h2>
+    <hr>
+    <ul>
+      <li><sup>2023</sup>Mini DRI plant – Set up 100,000 t/year of sponge iron capacity in one month</li>
+      <li><sup>2023</sup>SIDER Technology contract – Negotiated a $44.47M cooperative deal with India for Mongolia, a 300% increase in deal value</li>
+      <li><sup>2023</sup>21DREAMS Darkhan-Uul – An event on studying abroad for more than 1,000 students</li>
+      <li><sup>2021</sup>Animal welfare workshops – 10 workshops with local schools on behavior, adoption and training</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Certifications</h2>
+    <hr>
+    <ul>
+      <li><sup>NEW!</sup>GenAI Job Simulation – BCG X, via Forage (2026)</li>
+      <li>Risk Job Simulation – Goldman Sachs</li>
+      <li>Intelligent by Design: Build an AI Agent – IBM</li>
+      <li>Data Fundamentals – IBM</li>
+      <li>Introduction to Cybersecurity – Cisco</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <hr>
+    <ul>
+      <li>Bachelor of Science, Data Science, Minor in Mathematics –<br> New York University Shanghai</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Things I Like</h2>
+    <hr>
+    <ul>
+      <li>Drawing and painting, playing the horse head fiddle and the piano, personal investing, Python and C++, and switching between Mongolian, English, Chinese and a little German</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p class="mark" aria-hidden="true">33</p>
+    <p class="hello">Happy to chat, reach out!</p>
+    <ul>
+      <li><a class="out" href="https://www.linkedin.com/in/dulguun-enkhtsatsral-96409b26b">LinkedIn</a></li>
+    </ul>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var content = document.getElementById('content');
+
+  function wireCopy(scope) {
+    scope.querySelectorAll('button[data-copy]').forEach(function (btn) {
+      var src = scope.querySelector('[data-copy-src="' + btn.getAttribute('data-copy') + '"]');
+      var label = btn.textContent;
+      btn.addEventListener('click', function () {
+        var ok = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = label; }, 1500); };
+        var sel = function () {
+          var r = document.createRange(); r.selectNodeContents(src);
+          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+          btn.textContent = 'Selected, press Ctrl+C'; setTimeout(function () { btn.textContent = label; }, 2200);
+        };
+        try { navigator.clipboard.writeText(src.textContent).then(ok, sel); } catch (e) { sel(); }
+      });
+    });
+  }
+
+  root.classList.add('folded');
+  var scroller = document.getElementById('scroller');
+  var center = document.getElementById('center');
+  var before = document.querySelector('.fold-before');
+  var after = document.querySelector('.fold-after');
+  var spacer = document.getElementById('spacer');
+  center.appendChild(content);
+  var cB = content.cloneNode(true), cA = content.cloneNode(true);
+  [cB, cA].forEach(function (c) { c.removeAttribute('id'); c.setAttribute('inert', ''); c.setAttribute('aria-hidden', 'true'); });
+  before.appendChild(cB); after.appendChild(cA);
+  wireCopy(content);
+
+  var H = 0;
+  function update() {
+    var s = scroller.scrollTop || 0;
+    content.style.transform = 'translateY(' + (-s) + 'px)';
+    cB.style.transform = 'translateY(' + (H - s) + 'px)';
+    cA.style.transform = 'translateY(' + (-(s + H)) + 'px)';
+  }
+  function layout() {
+    H = center.clientHeight;
+    spacer.style.height = Math.max(0, content.scrollHeight - H) + 'px';
+    update();
+  }
+  var ticking = false;
+  scroller.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); } }, { passive: true });
+  window.addEventListener('resize', layout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  window.addEventListener('load', layout);
+  layout();
+  try { scroller.focus({ preventScroll: true }); } catch (e) {}
+  center.addEventListener('scroll', function () {
+    if (center.scrollTop) { scroller.scrollTop += center.scrollTop; center.scrollTop = 0; }
+  });
+})();
+</script>
+</body>
+</html>
