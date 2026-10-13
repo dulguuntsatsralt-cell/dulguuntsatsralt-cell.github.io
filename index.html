@@ -114,6 +114,7 @@ html.folded .scroller { display: block; position: fixed; inset: 0; overflow-y: a
     <ul>
       <li><a class="out" href="https://github.com/dulguuntsatsralt-cell/Mk33">Mk33</a> – A fully specified recipe and reference implementation for training long-horizon self-improving agents. Sole author, preprint, 2026. Read the <a class="out" href="https://github.com/dulguuntsatsralt-cell/Mk33/blob/main/paper/main.pdf">paper</a></li>
       <li>Mk33 Bench – Four small CPU-only environments for measuring whether an agent keeps improving over many rounds, on a laptop with any API or local model</li>
+      <li><a class="out" href="https://github.com/dulguuntsatsralt-cell/undaklared44">undaklared44</a> – An independent satellite count of the coal crossing Mongolia's border with China, built to compare against declared export figures. 2026</li>
     </ul>
   </section>
 
@@ -162,6 +163,37 @@ after    ▓▓▓▓▓▓▓▓≡≡≡≡≡~~~█████████�
   </section>
 
   <section>
+    <h2>undaklared44</h2>
+    <hr>
+    <ul>
+      <li>In 2022, protests in Ulaanbaatar followed reports of coal crossing into China without customs registration. Official statistics are still the only public record of how much coal leaves the country. undaklared44 asks whether free satellite imagery can provide a second, independent one. It measures coal, not culpability</li>
+      <li>Radar signal – Sentinel-1 scenes of the Gashuun Sukhait crossing, each compared with a patch of plain desert so rain and season cancel out, grouped by satellite orbit</li>
+      <li>Export data – 21 months of customs figures, each linked to its source, with derived months marked</li>
+      <li>Out-of-sample testing – Every measure is fixed on one period, then scored once on months it has never seen. Failed tests stay in the log</li>
+    </ul>
+    <div class="ascii" role="img" aria-label="Pipeline: satellite imagery, masks, signal, test against customs exports, results log.">
+<pre aria-hidden="true">SATELLITE ──▶ MASK ──▶ SIGNAL ──▶ TEST ──▶ LOG
+                                    ▲
+                                 CUSTOMS
+
+satellite count  vs.  declared exports   ·   42.41 N  107.57 E</pre>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Road radar signal</th><th>Months</th><th>Correlation</th><th>After removing trend</th></tr></thead>
+        <tbody>
+          <tr><td>2025, rule found</td><td class="n">8</td><td class="n">+0.80</td><td class="n">+0.67</td></tr>
+          <tr><td>2026, unseen data</td><td class="n">9</td><td class="n">+0.11</td><td class="n">+0.09</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>The first signal failed its test. A truck queue measures congestion, not volume: when the border runs smoothly, trucks pass quickly even at high volume</li>
+      <li><span class="pending">PENDING</span>Coal stockpile area at the border yards from Sentinel-2, tested the same way; results will be posted here</li>
+    </ul>
+  </section>
+
+  <section>
     <h2>Work Experience</h2>
     <hr>
     <ul>
@@ -198,7 +230,7 @@ after    ▓▓▓▓▓▓▓▓≡≡≡≡≡~~~█████████�
     <h2>Education</h2>
     <hr>
     <ul>
-      <li>Bachelor of Science, Data Science, Minor in Mathematics –<br> New York University Shanghai</li>
+      <li><strong>Bachelor of Science, Data Science, Minor in Mathematics –<br> New York University Shanghai</strong></li>
     </ul>
   </section>
 
