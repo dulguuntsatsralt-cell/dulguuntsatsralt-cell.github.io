@@ -115,7 +115,7 @@ html.folded .scroller { display: block; position: fixed; inset: 0; overflow-y: a
     <ul>
       <li><a class="out" href="https://github.com/dulguuntsatsralt-cell/Mk33">Mk33</a> – A fully specified recipe and reference implementation for training long-horizon self-improving agents. Sole author, preprint, 2026. Read the <a class="out" href="https://github.com/dulguuntsatsralt-cell/Mk33/blob/main/paper/main.pdf">paper</a></li>
       <li>Mk33 Bench – Four small CPU-only environments for measuring whether an agent keeps improving over many rounds, on a laptop with any API or local model</li>
-      <li><a class="out" href="https://github.com/dulguuntsatsralt-cell/undeklared44">undeklared44</a> – An independent satellite count of the coal crossing Mongolia's border with China, built to compare against declared export figures. 2026</li>
+      <li><a class="out" href="https://github.com/dulguuntsatsralt-cell/undeklared44">undeklared44</a> – Mongolia's coal exports checked against China's customs records and free satellite imagery. The tonnes match; in 2021-22 the two records differ by about $2 billion in value, only for Mongolian coal. 2026</li>
     </ul>
   </section>
 
@@ -167,30 +167,36 @@ after    ▓▓▓▓▓▓▓▓≡≡≡≡≡~~~█████████�
     <h2>undeklared44</h2>
     <hr>
     <ul>
-      <li>In 2022, protests in Ulaanbaatar followed reports of coal crossing into China without customs registration. Official statistics are still the only public record of how much coal leaves the country. undeklared44 asks whether free satellite imagery can provide a second, independent one. It measures coal, not culpability</li>
-      <li>Radar signal – Sentinel-1 scenes of the Gashuun Sukhait crossing, each compared with a patch of plain desert so rain and season cancel out, grouped by satellite orbit</li>
-      <li>Export data – 21 months of customs figures, each linked to its source, with derived months marked</li>
-      <li>Out-of-sample testing – Every measure is fixed on one period, then scored once on months it has never seen. Failed tests stay in the log</li>
+      <li>In 2022, protests in Ulaanbaatar followed the coal theft case: allegations that coal from the state mining company was sold off the books to buyers at the Chinese border. Mongolia's own statistics are the usual record of how much coal leaves and what it was worth. undeklared44 asks what other records say. It compares records, not culpability</li>
+      <li>Customs records – Mongolia's statistics office (coal exports by month since 2011) against China's own import records from UN Comtrade, with Indonesia and Canada as controls</li>
+      <li>Satellite records – About 3,000 Sentinel-1 radar and Sentinel-2 optical scenes of the Gashuun Sukhait crossing, its coal yard and the main coal road</li>
+      <li>Pre-registered tests – Every satellite measure is written down before the data it is tested on is downloaded, then scored once. Failed tests stay in the log</li>
     </ul>
-    <div class="ascii" role="img" aria-label="Pipeline: satellite imagery, masks, signal, test against customs exports, results log.">
-<pre aria-hidden="true">SATELLITE ──▶ MASK ──▶ SIGNAL ──▶ TEST ──▶ LOG
-                                    ▲
-                                 CUSTOMS
+    <div class="ascii" role="img" aria-label="Two records of the same border: Mongolia's customs record and China's customs record are compared, with satellite imagery as an independent check.">
+<pre aria-hidden="true">MONGOLIA CUSTOMS ──┐
+                   ├──▶ COMPARE ──▶ GAP ──▶ CONTROLS
+CHINA CUSTOMS ─────┘                ▲
+                                SATELLITES
 
-satellite count  vs.  declared exports   ·   42.41 N  107.57 E</pre>
+two records of the same border   ·   42.41 N  107.57 E</pre>
     </div>
     <div class="scroll">
       <table>
-        <thead><tr><th>Road radar signal</th><th>Months</th><th>Correlation</th><th>After removing trend</th></tr></thead>
+        <thead><tr><th>China's record as a share of Mongolia's</th><th>Tonnes</th><th>US dollars</th></tr></thead>
         <tbody>
-          <tr><td>2025, rule found</td><td class="n">8</td><td class="n">+0.80</td><td class="n">+0.67</td></tr>
-          <tr><td>2026, unseen data</td><td class="n">9</td><td class="n">+0.11</td><td class="n">+0.09</td></tr>
+          <tr><td>2017 to 2020</td><td class="n">99-102%</td><td class="n">94-101%</td></tr>
+          <tr><td>2021</td><td class="n">102%</td><td class="n">73%</td></tr>
+          <tr><td>2022</td><td class="n">98%</td><td class="n">78%</td></tr>
+          <tr><td>2023 to 2025</td><td class="n">99% (2024-25)</td><td class="n">96-97%</td></tr>
         </tbody>
       </table>
     </div>
     <ul>
-      <li>The first signal failed its test. A truck queue measures congestion, not volume: when the border runs smoothly, trucks pass quickly even at high volume</li>
-      <li><span class="pending">PENDING</span>Coal stockpile area at the border yards from Sentinel-2, tested the same way; results will be posted here</li>
+      <li>The tonnes match – Both countries agree on how much coal crossed, within about 2% a year since 2017. No sign of coal crossing undeclared</li>
+      <li>The dollars do not – From January 2021 to August 2022, China recorded the same coal as worth about $2 billion less than Mongolia did. The gap closed in September 2022, a month before the head of the state coal company was fired</li>
+      <li>Only Mongolia – In the same years China recorded Indonesian and Canadian coal at or above those countries' own values, and the monthly data rules out timing</li>
+      <li>Satellites – Five pre-registered tests of satellite signals against exports all failed, each for a clear reason. The radar does show the border road at its quietest in six years during the gap period</li>
+      <li><span class="pending">OPEN</span>Whether Mongolian customs valued coal at a benchmark price in 2021-22, which would decide which record is the odd one</li>
     </ul>
   </section>
 
